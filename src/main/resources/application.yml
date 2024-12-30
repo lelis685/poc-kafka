@@ -1,0 +1,28 @@
+server:
+  port: 3000
+
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKER:localhost:9092}
+    topic:
+      consumer: order-start
+      producer: order-finish
+    consumer:
+      group-id: order-group
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.apache.kafka.common.serialization.StringSerializer
+  data:
+    mongodb:
+      database: order-db
+      auto-index-creation: true
+      uri: ${MONGO_DB_URI}
+
+logging:
+  level:
+    org:
+      apache:
+        kafka: OFF
